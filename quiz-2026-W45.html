@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>周测 2026-W45 · 英语听力</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--fg:#14171c;--sub:#5d6573;--mute:#9aa1ad;--line:#e3e6eb;--acc:#2f6fed;--accbg:#e8f0ff;--ok:#1a7f37;--okbg:#e6f6ea;--bad:#cf222e;--badbg:#ffebe9;--chip:#eef0f3;--mark:#fff1b8}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#181b21;--fg:#eef1f5;--sub:#a7afbb;--mute:#6c7480;--line:#2a2f37;--acc:#6ea1ff;--accbg:#1c2a45;--ok:#3dd68c;--okbg:#132a1c;--bad:#ff7b72;--badbg:#2a1215;--chip:#232831;--mark:#5a4a12}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Noto Sans CJK SC",sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 12px calc(48px + env(safe-area-inset-bottom))}
+header{padding:14px 4px 8px}
+header a{color:var(--acc);text-decoration:none;font-size:15px}
+header h1{font-size:22px;margin:8px 0 2px}
+header .sub{font-size:13px;color:var(--sub)}
+.progress{font-size:13px;color:var(--mute);margin:8px 2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.card h3{margin:0 0 6px;font-size:16px}
+.meta{font-size:12px;color:var(--mute);margin-bottom:8px}
+.prompt{font-size:15px;color:var(--sub);margin-bottom:10px}
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.btns button,.opt,.actions button{border:1px solid var(--line);background:var(--chip);color:var(--fg);border-radius:12px;padding:12px 14px;font-size:15px;min-height:48px}
+.btns button.pri,.actions button.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.opt{text-align:left;width:100%}
+.opt.sel{background:var(--accbg);border-color:var(--acc);color:var(--acc);font-weight:600}
+input[type=text]{width:100%;font-size:17px;padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--fg);min-height:52px}
+.actions{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
+.actions button{flex:1}
+.score{font-size:28px;font-weight:700;margin:8px 0}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.result-item{border-left:3px solid var(--line);padding:8px 10px;margin:8px 0;background:var(--card);border-radius:8px}
+.result-item.correct{border-left-color:var(--ok)}
+.result-item.wrong{border-left-color:var(--bad)}
+.hidden{display:none}
+mark{background:var(--mark);border-radius:3px;padding:0 2px}
+#copytoast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;display:none;z-index:9}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a href="index.html">← 课程列表</a> · <a href="review.html">错题本</a>
+  <h1>📝 周测 2026-W45</h1>
+  <div class="sub">共 12 题 · 听写 / 选意思 / 连读辨音 · 自动判分</div>
+</header>
+<div class="progress" id="prog"></div>
+<div id="quiz"></div>
+<div id="result" class="hidden"></div>
+</div>
+<div id="copytoast">已复制结果</div>
+<script>
+const WEEK = "2026-W45";
+const QUESTIONS = [{"id": "L1_whipped-out-their", "qtype": "连读辨音", "audio": "review/audio/L1_whipped-out-their.mp3", "focus": "whipped out their", "en": "And there were several people on that tour who were all - they seemed to be much more seasoned travelers than I was, and they just all immediately whipped out their rain jackets.", "zh": "那个团里有好几个人，他们全都——他们看起来都比我有经验多了，一下子全都掏出了雨衣。", "note": "-ed 读 /t/ 并连到 out：听感像 whip-tout-their", "source": "错题", "lesson": 1, "type": "连读", "options": ["whipped out their", "whipped up their", "beefy flavor", "whipped of out their"], "answer": "whipped out their", "prompt": "听录音，选出听到的连读/短语写法"}, {"id": "L1_rain-gear", "qtype": "听写", "audio": "review/audio/L1_rain-gear.mp3", "focus": "rain gear", "en": "And I didn't have any of my rain gear.", "zh": "我一件雨具都没带。", "note": "rain gear = 雨具（雨衣/雨披等统称）；gear 在口语里很轻", "source": "错题", "lesson": 1, "type": "生词", "answer": "rain gear", "answerFull": "And I didn't have any of my rain gear.", "prompt": "听写重点词/短语（可只写 focus）"}, {"id": "L1_dumped-on", "qtype": "选意思", "audio": "review/audio/L1_dumped-on.mp3", "focus": "dumped on", "en": "She was getting absolutely dumped on.", "zh": "结果被大雨浇了个透。", "note": "口语 get dumped on = 被大雨浇透；dumped 爆破音弱，容易漏听 on", "source": "错题", "lesson": 1, "type": "组块", "options": ["又顶饱又能随便搭配的食材", "（口语）被大雨浇透", "让我有共鸣、说到我心里", "拖慢……"], "answer": "（口语）被大雨浇透", "prompt": "听录音，选择这个表达的中文意思"}, {"id": "L1_didnt-have-any", "qtype": "听写", "audio": "review/audio/L1_didnt-have-any.mp3", "focus": "didn't have any of my", "en": "And I didn't have any of my rain gear.", "zh": "我一件雨具都没带。", "note": "didn't 的 t 几乎不爆破；have any → hav-enee；of 弱读 uv", "source": "错题", "lesson": 1, "type": "连读", "answer": "didn't have any of my", "answerFull": "And I didn't have any of my rain gear.", "prompt": "听写重点词/短语（可只写 focus）"}, {"id": "Q_2026W45_3_process-along", "qtype": "连读辨音", "audio": "review/audio/Q_2026W45_3_process-along.mp3", "focus": "process along", "en": "So an impact statement would be something like, when you don't respond immediately to this production question, it's a lot harder for us to move the production process along, and it slows down the entire work that we're doing.", "zh": "所以影响陈述大概是这样的：你没有马上回复这个制作上的问题时，我们就很难推进制作流程，整个工作都会被拖慢。", "note": "process 的 s 挪到 along 前", "source": "课程重点", "lesson": 3, "type": "连读", "options": ["process of along", "so versatile", "getting absolutely dumped on", "process along"], "answer": "process along", "prompt": "听录音，选出听到的连读/短语写法"}, {"id": "Q_2026W45_2_get-in-and-get-out", "qtype": "听写", "audio": "review/audio/Q_2026W45_2_get-in-and-get-out.mp3", "focus": "get in and get out", "en": "You can stay focused so I can get in and get out and get on with my day.", "zh": "这样能保持专注，我就能快进快出，接着忙自己的事。", "note": "get 闪音；and 弱成 ən", "source": "课程重点", "lesson": 2, "type": "连读", "answer": "get in and get out", "answerFull": "You can stay focused so I can get in and get out and get on with my day.", "prompt": "听写重点词/短语（可只写 focus）"}, {"id": "Q_2026W45_3_open-up-space", "qtype": "连读辨音", "audio": "review/audio/Q_2026W45_3_open-up-space.mp3", "focus": "open up space", "en": "This is a question to kind of open up space for, one, the person to be essentially consenting to having a conversation with you, which I think is really important and powerful.", "zh": "这是一个提问，用来先打开空间，一是让对方基本上同意跟你聊这件事，我觉得这一点非常重要、非常有效。", "note": "open 的 n 粘到 up：o-pe-nup", "source": "课程重点", "lesson": 3, "type": "连读", "options": ["open of up space", "filling and flexible foods", "move the production process along", "open up space"], "answer": "open up space", "prompt": "听录音，选出听到的连读/短语写法"}, {"id": "Q_2026W45_3_a-ton-of-things", "qtype": "听写", "audio": "review/audio/Q_2026W45_3_a-ton-of-things.mp3", "focus": "a ton of things", "en": "Yeah. So, you know, when it comes to feedback and research, there's a ton of things out there that - or a ton of studies out there that talk about the components that make feedback most helpful.", "zh": "嗯，说到反馈方面的研究，外面有一大堆东西……或者说一大堆研究，讲的是哪些要素能让反馈最有用。", "note": "ton of → tunna；of 弱读", "source": "课程重点", "lesson": 3, "type": "连读", "answer": "a ton of things", "answerFull": "Yeah. So, you know, when it comes to feedback and research, there's a ton of things out there that - or a ton of studies out there that talk about the components that make feedback most helpful.", "prompt": "听写重点词/短语（可只写 focus）"}, {"id": "Q_2026W45_3_know-what-it-heard", "qtype": "连读辨音", "audio": "review/audio/Q_2026W45_3_know-what-it-heard.mp3", "focus": "know what it heard", "en": "But it does know what it heard, and it does know what it saw.", "zh": "但它确实知道自己听到了什么、看到了什么。", "note": "what 的 t 闪音成轻 d", "source": "课程重点", "lesson": 3, "type": "连读", "options": ["check the extended forecast", "know of what it heard", "know what it heard", "resonate with me"], "answer": "know what it heard", "prompt": "听录音，选出听到的连读/短语写法"}, {"id": "Q_2026W45_2_stick-to-your-list", "qtype": "听写", "audio": "review/audio/Q_2026W45_2_stick-to-your-list.mp3", "focus": "stick to your list", "en": "Now, Beth says before you buy groceries, make a plan, and then stick to your list.", "zh": "Beth 说，买菜之前先做好计划，然后严格按照清单买。", "note": "to/your 弱读，整串很快", "source": "课程重点", "lesson": 2, "type": "连读", "answer": "stick to your list", "answerFull": "Now, Beth says before you buy groceries, make a plan, and then stick to your list.", "prompt": "听写重点词/短语（可只写 focus）"}, {"id": "Q_2026W45_3_step-out-of", "qtype": "连读辨音", "audio": "review/audio/Q_2026W45_3_step-out-of.mp3", "focus": "step out of", "en": "This is how we sort of step out of this zone of compliance, people just doing something because they feel like they have to or they're going to get in trouble if they don't, but a full understanding.", "zh": "这样我们才能走出“只是服从”的状态，就是人们做某件事只是因为觉得不得不做，或者不做就会有麻烦；而是真正理解。", "note": "out of → ou-də / ou-tuv", "source": "课程重点", "lesson": 3, "type": "连读", "options": ["step of out of", "takes up almost", "step out of", "step up off"], "answer": "step out of", "prompt": "听录音，选出听到的连读/短语写法"}, {"id": "Q_2026W45_3_gonna-get-in-trouble", "qtype": "听写", "audio": "review/audio/Q_2026W45_3_gonna-get-in-trouble.mp3", "focus": "gonna get in trouble", "en": "This is how we sort of step out of this zone of compliance, people just doing something because they feel like they have to or they're going to get in trouble if they don't, but a full understanding.", "zh": "这样我们才能走出“只是服从”的状态，就是人们做某件事只是因为觉得不得不做，或者不做就会有麻烦；而是真正理解。", "note": "gonna + get 闪音连 in", "source": "课程重点", "lesson": 3, "type": "连读", "answer": "gonna get in trouble", "answerFull": "This is how we sort of step out of this zone of compliance, people just doing something because they feel like they have to or they're going to get in trouble if they don't, but a full understanding.", "prompt": "听写重点词/短语（可只写 focus）"}];
+
+function norm(s){
+  s = String(s||'').toLowerCase().replace(/[’‘]/g,"'");
+  const reps={"don't":"do not","didn't":"did not","doesn't":"does not","won't":"will not","can't":"cannot","cannot":"can not","i'm":"i am","you're":"you are","it's":"it is","that's":"that is","there's":"there is","they're":"they are","we're":"we are","i've":"i have","you've":"you have","gonna":"going to","wanna":"want to"};
+  for(const [a,b] of Object.entries(reps)) s=s.replace(new RegExp('\\b'+a+'\\b','g'),b);
+  return s.replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+}
+function lenientEq(user, answer, answerFull){
+  const u = norm(user);
+  if(!u) return false;
+  const a = norm(answer);
+  const f = norm(answerFull||'');
+  if(u===a || (f && u===f)) return true;
+  // allow user typing full sentence when answer is focus, or vice versa
+  if(f && (f.includes(u) || u.includes(a))){
+    // require at least the focus tokens
+    const tokens = a.split(' ').filter(Boolean);
+    if(tokens.every(t=>u.includes(t))) return true;
+  }
+  // token overlap >= 80% for multi-word
+  const ut=u.split(' ').filter(Boolean), at=a.split(' ').filter(Boolean);
+  if(!at.length) return false;
+  const hit = at.filter(t=>ut.includes(t)).length;
+  return hit/at.length >= 0.8 && Math.abs(ut.length-at.length)<=2;
+}
+
+const answers = {}; // id -> {value, correct?}
+let audio = new Audio();
+let curPlay = null;
+
+function stop(){ try{audio.pause();}catch(e){} curPlay=null; }
+
+function play(src, slow){
+  stop();
+  audio.src = src;
+  audio.playbackRate = slow?0.75:1;
+  audio.play().catch(()=>{});
+}
+
+function render(){
+  const root = document.getElementById('quiz');
+  root.innerHTML = '';
+  document.getElementById('prog').textContent = '已答 '+Object.keys(answers).length+' / '+QUESTIONS.length;
+  QUESTIONS.forEach((q,i)=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.id = q.id;
+    const srcTag = q.source==='课程重点' ? '课程重点' : '错题';
+    card.innerHTML = `<h3>第 ${i+1} 题 · ${q.qtype}</h3>
+      <div class="meta">${srcTag} · L${q.lesson} · ${q.type||''}</div>
+      <div class="prompt">${q.prompt}</div>
+      <div class="btns">
+        <button type="button" class="pri" data-act="play">▶ 播放</button>
+        <button type="button" data-act="slow">0.75×</button>
+      </div>
+      <div class="body"></div>`;
+    const body = card.querySelector('.body');
+    if(q.qtype==='听写'){
+      const inp = document.createElement('input');
+      inp.type='text'; inp.placeholder='输入你听到的重点词/短语…'; inp.autocomplete='off'; inp.autocapitalize='off';
+      inp.value = answers[q.id]?.value || '';
+      inp.addEventListener('input', ()=>{ answers[q.id]={value:inp.value}; document.getElementById('prog').textContent='已答 '+Object.keys(answers).filter(k=>answers[k].value).length+' / '+QUESTIONS.length; });
+      body.appendChild(inp);
+    } else {
+      const opts = document.createElement('div'); opts.className='opts';
+      (q.options||[]).forEach(opt=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt'+(answers[q.id]?.value===opt?' sel':'');
+        b.textContent=opt;
+        b.addEventListener('click',()=>{
+          answers[q.id]={value:opt};
+          opts.querySelectorAll('.opt').forEach(x=>x.classList.toggle('sel', x.textContent===opt));
+          document.getElementById('prog').textContent='已答 '+Object.keys(answers).length+' / '+QUESTIONS.length;
+        });
+        opts.appendChild(b);
+      });
+      body.appendChild(opts);
+    }
+    card.querySelector('[data-act=play]').onclick=()=>play(q.audio,false);
+    card.querySelector('[data-act=slow]').onclick=()=>play(q.audio,true);
+    root.appendChild(card);
+  });
+  const actions=document.createElement('div');
+  actions.className='actions';
+  actions.innerHTML='<button type="button" class="pri" id="submit">交卷判分</button>';
+  root.appendChild(actions);
+  document.getElementById('submit').onclick=grade;
+}
+
+function grade(){
+  stop();
+  let right=0;
+  const wrongIds=[];
+  const details=[];
+  for(const q of QUESTIONS){
+    const user=(answers[q.id]?.value||'').trim();
+    let ok=false;
+    if(q.qtype==='听写') ok=lenientEq(user,q.answer,q.answerFull);
+    else ok = norm(user)===norm(q.answer) || user===q.answer;
+    if(ok) right++; else wrongIds.push(q.id);
+    details.push({q,user,ok});
+  }
+  const total=QUESTIONS.length;
+  const pct=Math.round(right/total*100);
+  document.getElementById('quiz').classList.add('hidden');
+  const res=document.getElementById('result');
+  res.classList.remove('hidden');
+  let html=`<div class="card"><div class="score">${right} / ${total}（${pct}%）</div>
+    <div class="sub">周测 ${WEEK}</div>
+    <div class="actions"><button type="button" class="pri" id="copybtn">复制结果</button>
+    <button type="button" id="retry">再测一次</button>
+    <a href="review.html" style="flex:1"><button type="button" style="width:100%">去错题本</button></a></div></div>`;
+  for(const d of details){
+    const q=d.q;
+    html+=`<div class="result-item ${d.ok?'correct':'wrong'}">
+      <div><b>${d.ok?'✓':'✗'} ${q.qtype}</b> · <code>${q.id}</code></div>
+      <div style="margin:6px 0" class="btns"><button type="button" data-src="${q.audio}" class="replay">▶ 重听</button></div>
+      <div>你的答案：${escape(d.user)||'（空）'}</div>
+      <div>正确答案：<mark>${escape(q.answer)}</mark></div>
+      <div style="margin-top:4px;color:var(--sub)">${escape(q.en)}</div>
+      <div style="color:var(--sub)">${escape(q.zh||'')}</div>
+      <div style="font-size:13px;color:var(--mute);margin-top:4px">${escape(q.note||'')}</div>
+    </div>`;
+  }
+  res.innerHTML=html;
+  res.querySelectorAll('.replay').forEach(b=>b.onclick=()=>play(b.dataset.src,false));
+  const summary = [`周测 ${WEEK}`,`得分 ${right}/${total} (${pct}%)`,`错题 id: ${wrongIds.join(', ')||'无'}`].join('\n');
+  document.getElementById('copybtn').onclick=async()=>{
+    try{ await navigator.clipboard.writeText(summary); }
+    catch(e){
+      const ta=document.createElement('textarea'); ta.value=summary; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    }
+    const t=document.getElementById('copytoast'); t.style.display='block'; setTimeout(()=>t.style.display='none',1600);
+  };
+  document.getElementById('retry').onclick=()=>{ for(const k of Object.keys(answers)) delete answers[k]; res.classList.add('hidden'); document.getElementById('quiz').classList.remove('hidden'); render(); window.scrollTo(0,0); };
+}
+function escape(s){ return String(s||'').replace(/[&<>"']/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+render();
+</script>
+</body>
+</html>
