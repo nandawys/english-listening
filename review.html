@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>错题本 · 英语听力</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--fg:#14171c;--sub:#5d6573;--mute:#9aa1ad;--line:#e3e6eb;--acc:#2f6fed;--accbg:#e8f0ff;--mark:#fff1b8;--chip:#eef0f3;--ok:#1a7f37;--okbg:#e6f6ea;--warn:#b54708;--warnbg:#fff4e5}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#181b21;--fg:#eef1f5;--sub:#a7afbb;--mute:#6c7480;--line:#2a2f37;--acc:#6ea1ff;--accbg:#1c2a45;--mark:#5a4a12;--chip:#232831;--ok:#3dd68c;--okbg:#132a1c;--warn:#ffb060;--warnbg:#2a1c0e}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Noto Sans CJK SC",sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 12px calc(48px + env(safe-area-inset-bottom))}
+header{padding:14px 4px 6px}
+header a.back{color:var(--acc);text-decoration:none;font-size:15px}
+header h1{font-size:22px;margin:8px 0 2px}
+header .sub{font-size:13px;color:var(--sub)}
+.filters{display:flex;flex-direction:column;gap:8px;margin:10px 0 14px}
+.frow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.frow .lb{font-size:13px;color:var(--sub);width:40px;flex:none}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:8px 12px;font-size:14px;min-height:40px}
+.chip.sel{background:var(--acc);border-color:var(--acc);color:#fff}
+.group{margin:18px 0 8px}
+.group h2{font-size:16px;margin:0 2px 8px;color:var(--sub);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.card.mastered{opacity:.72}
+.card .top{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+.tag{font-size:12px;padding:4px 8px;border-radius:999px;background:var(--chip);color:var(--sub)}
+.tag.t-连读{background:var(--accbg);color:var(--acc)}
+.tag.t-生词{background:#fce8ff;color:#9b2faf}
+.tag.t-组块{background:#e7f8ef;color:#1a7f37}
+.tag.t-语速\/漏听,.tag.t-语速{background:var(--warnbg);color:var(--warn)}
+@media (prefers-color-scheme:dark){.tag.t-生词{background:#2a1830;color:#e0a0f0}.tag.t-组块{background:#132a1c;color:#3dd68c}}
+.tag.st-mastered{background:var(--okbg);color:var(--ok)}
+.tag.st-reviewing{background:var(--warnbg);color:var(--warn)}
+.date{font-size:12px;color:var(--mute);margin-left:auto}
+.en{font-size:clamp(18px,5.2vw,22px);line-height:1.4;font-weight:600;margin:4px 0}
+.en mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 2px}
+.zh{font-size:clamp(15px,4.2vw,17px);line-height:1.5;color:var(--sub);margin:2px 0 6px}
+.note{font-size:14px;color:var(--sub);line-height:1.5;border-left:3px solid var(--line);padding-left:8px;margin:6px 0 10px}
+.focus{font-size:13px;color:var(--acc);margin-bottom:4px}
+.btns{display:flex;flex-wrap:wrap;gap:6px}
+.btns button{border:1px solid var(--line);background:var(--chip);color:var(--fg);border-radius:999px;padding:10px 14px;font-size:15px;min-height:44px}
+.btns button.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.btns button.on{background:var(--accbg);color:var(--acc);font-weight:600;border-color:var(--acc)}
+.btns button.ok{background:var(--okbg);color:var(--ok);border-color:var(--ok)}
+.btns button.warn{background:var(--warnbg);color:var(--warn);border-color:var(--warn)}
+.hide-en .en,.hide-zh .zh{display:none}
+.reveal-bar{display:flex;gap:6px;margin:6px 0 8px}
+.reveal-bar button{flex:1;min-height:44px;border:1px dashed var(--line);background:var(--bg);color:var(--sub);border-radius:10px;font-size:14px}
+.reveal-bar button.shown{border-style:solid;color:var(--fg);background:var(--chip)}
+.empty{text-align:center;color:var(--mute);padding:40px 10px;font-size:15px}
+.card.playing{border-color:var(--acc);box-shadow:0 0 0 2px var(--accbg)}
+.count{font-size:13px;color:var(--mute);margin:0 2px 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="back" href="index.html">← 课程列表</a>
+  <h1>📒 错题本</h1>
+  <div class="sub">先听后看 · 连读 / 生词 / 组块复习</div>
+</header>
+
+<div class="filters">
+  <div class="frow" id="ftype">
+    <span class="lb">类型</span>
+    <button class="chip sel" data-v="all">全部</button>
+    <button class="chip" data-v="连读">连读</button>
+    <button class="chip" data-v="生词">生词</button>
+    <button class="chip" data-v="组块">组块</button>
+    <button class="chip" data-v="语速/漏听">语速/漏听</button>
+  </div>
+  <div class="frow" id="fstatus">
+    <span class="lb">状态</span>
+    <button class="chip sel" data-v="all">全部</button>
+    <button class="chip" data-v="new">新错</button>
+    <button class="chip" data-v="reviewing">复习中</button>
+    <button class="chip" data-v="mastered">已掌握</button>
+  </div>
+</div>
+<div class="count" id="count"></div>
+<div id="list"></div>
+<div class="empty" id="empty" style="display:none">没有符合筛选的错题</div>
+</div>
+
+<script>
+const LS_KEY = 'en-listening-mistakes-status-v1';
+let DATA = [];
+let filterType = 'all', filterStatus = 'all';
+let listenFirst = true; // 先听后看 default on for cards
+const audio = new Audio();
+let loopOn = false, currentId = null, rate = 1;
+
+function loadStatusMap(){
+  try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch(e){ return {}; }
+}
+function saveStatusMap(m){ localStorage.setItem(LS_KEY, JSON.stringify(m)); }
+function effectiveStatus(e){
+  const m = loadStatusMap();
+  return m[e.id] || e.status || 'new';
+}
+function setStatus(id, st){
+  const m = loadStatusMap();
+  m[id] = st;
+  saveStatusMap(m);
+  render();
+}
+
+function highlight(en, focus){
+  if(!focus) return escapeHtml(en);
+  const parts = focus.trim().split(/\s+/).filter(Boolean).map(escapeReg);
+  if(!parts.length) return escapeHtml(en);
+  const gap = "[\\s\\u2019']*";
+  const re = new RegExp('(' + parts.join(gap) + ')', 'ig');
+  return escapeHtml(en).replace(re, '<mark>$1</mark>');
+}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+function escapeReg(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+
+function stopAudio(){
+  try{ audio.pause(); }catch(e){}
+  audio.removeAttribute('src');
+  currentId = null;
+  document.querySelectorAll('.card.playing').forEach(el=>el.classList.remove('playing'));
+}
+
+function playClip(e, slow){
+  const card = document.querySelector('[data-id="'+e.id+'"]');
+  if(currentId === e.id && !audio.paused && !slow && audio.playbackRate===1){
+    stopAudio(); return;
+  }
+  stopAudio();
+  currentId = e.id;
+  rate = slow ? 0.75 : 1;
+  audio.src = e.audio;
+  audio.playbackRate = rate;
+  audio.loop = loopOn && currentId===e.id;
+  if(card) card.classList.add('playing');
+  audio.play().catch(()=>{});
+}
+audio.addEventListener('ended', ()=>{
+  if(!(loopOn && currentId)) document.querySelectorAll('.card.playing').forEach(el=>el.classList.remove('playing'));
+});
+
+function statusLabel(st){
+  return ({new:'新错', reviewing:'复习中', mastered:'已掌握'})[st]||st;
+}
+
+function render(){
+  const list = document.getElementById('list');
+  const empty = document.getElementById('empty');
+  const filtered = DATA.filter(e=>{
+    if(filterType!=='all' && e.type!==filterType) return false;
+    const st = effectiveStatus(e);
+    if(filterStatus!=='all' && st!==filterStatus) return false;
+    return true;
+  });
+  document.getElementById('count').textContent = '显示 '+filtered.length+' / '+DATA.length+' 条';
+  // group by lesson, newest lesson first
+  const byLesson = new Map();
+  for(const e of filtered){
+    if(!byLesson.has(e.lesson)) byLesson.set(e.lesson, []);
+    byLesson.get(e.lesson).push(e);
+  }
+  const lessons = [...byLesson.keys()].sort((a,b)=>b-a);
+  list.innerHTML = '';
+  if(!lessons.length){ empty.style.display='block'; return; }
+  empty.style.display='none';
+  for(const L of lessons){
+    const items = byLesson.get(L);
+    items.sort((a,b)=> (b.date||'').localeCompare(a.date||'') || b.id.localeCompare(a.id));
+    const g = document.createElement('div');
+    g.className = 'group';
+    const title = items[0].lessonTitle || ('Lesson '+L);
+    g.innerHTML = '<h2>'+escapeHtml(title)+'</h2>';
+    for(const e of items){
+      const st = effectiveStatus(e);
+      const card = document.createElement('div');
+      card.className = 'card'+(st==='mastered'?' mastered':'');
+      card.dataset.id = e.id;
+      const hideClass = 'hide-en hide-zh'; // 先听后看 default
+      card.innerHTML = `
+        <div class="top">
+          <span class="tag t-${escapeHtml(e.type)}">${escapeHtml(e.type)}</span>
+          <span class="tag st-${st}">${statusLabel(st)}</span>
+          <span class="date">${escapeHtml(e.date||'')}</span>
+        </div>
+        <div class="focus">重点：${escapeHtml(e.focus||'')}</div>
+        <div class="reveal-bar">
+          <button type="button" data-act="reveal-en">先听 · 点看英文</button>
+          <button type="button" data-act="reveal-zh">再看中文</button>
+        </div>
+        <div class="body ${hideClass}">
+          <div class="en">${highlight(e.en, e.focus)}</div>
+          <div class="zh">${escapeHtml(e.zh||'')}</div>
+        </div>
+        <div class="note">${escapeHtml(e.note||'')}</div>
+        <div class="btns">
+          <button type="button" class="pri" data-act="play">▶ 播放</button>
+          <button type="button" data-act="slow">0.75× 慢速</button>
+          <button type="button" data-act="loop">循环</button>
+          <button type="button" class="${st==='mastered'?'ok':'warn'}" data-act="toggle">${st==='mastered'?'仍觉得难':'标为掌握'}</button>
+        </div>`;
+      g.appendChild(card);
+    }
+    list.appendChild(g);
+  }
+}
+
+document.getElementById('list').addEventListener('click', ev=>{
+  const btn = ev.target.closest('button[data-act]');
+  if(!btn) return;
+  const card = btn.closest('.card');
+  const id = card.dataset.id;
+  const e = DATA.find(x=>x.id===id);
+  if(!e) return;
+  const act = btn.dataset.act;
+  if(act==='play') playClip(e, false);
+  else if(act==='slow') playClip(e, true);
+  else if(act==='loop'){
+    loopOn = !loopOn;
+    btn.classList.toggle('on', loopOn);
+    audio.loop = loopOn && currentId===id;
+    // update all loop buttons
+    document.querySelectorAll('[data-act="loop"]').forEach(b=>b.classList.toggle('on', loopOn));
+  } else if(act==='toggle'){
+    const st = effectiveStatus(e);
+    setStatus(id, st==='mastered' ? 'reviewing' : 'mastered');
+  } else if(act==='reveal-en'){
+    card.querySelector('.body').classList.remove('hide-en');
+    btn.classList.add('shown');
+    btn.textContent = '英文 ✓';
+  } else if(act==='reveal-zh'){
+    card.querySelector('.body').classList.remove('hide-zh');
+    btn.classList.add('shown');
+    btn.textContent = '中文 ✓';
+  }
+});
+
+function wireFilters(rowId, setter){
+  const row = document.getElementById(rowId);
+  row.addEventListener('click', ev=>{
+    const b = ev.target.closest('button.chip');
+    if(!b) return;
+    row.querySelectorAll('button.chip').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');
+    setter(b.dataset.v);
+    render();
+  });
+}
+wireFilters('ftype', v=> filterType=v);
+wireFilters('fstatus', v=> filterStatus=v);
+
+fetch('mistakes.json?ts='+Date.now())
+  .then(r=>r.json())
+  .then(d=>{ DATA = Array.isArray(d)?d:[]; render(); })
+  .catch(err=>{
+    document.getElementById('empty').style.display='block';
+    document.getElementById('empty').textContent='加载 mistakes.json 失败：'+err;
+  });
+</script>
+</body>
+</html>
