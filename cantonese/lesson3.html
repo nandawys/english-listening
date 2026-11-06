@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>粤语第3课 · 懒音</title>
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#666;--card:#f7f7f8;--bd:#ddd;--acc:#2f6fed;--acc2:#0a7a3e;--warn:#b54708;--chip:#eef3ff}
+@media(prefers-color-scheme:dark){:root{--bg:#111;--fg:#eee;--muted:#aaa;--card:#1a1a1a;--bd:#333;--acc:#6ea8fe;--acc2:#3ecf8e;--warn:#ffb86b;--chip:#1e2a44}}
+*{box-sizing:border-box}body{font-family:-apple-system,system-ui,"PingFang SC","Noto Sans SC",sans-serif;max-width:680px;margin:0 auto;padding:20px 16px 48px;line-height:1.65;background:var(--bg);color:var(--fg)}
+a{color:var(--acc)}h1{font-size:1.55rem;margin:8px 0 6px}h2{font-size:1.2rem;margin:22px 0 10px}h3{font-size:1.05rem;margin:16px 0 8px}
+.muted{color:var(--muted);font-size:.95rem}.nav{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+.nav a,.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 14px;border:1px solid var(--bd);border-radius:12px;text-decoration:none;color:inherit;background:var(--card);font-size:15px;min-height:44px;cursor:pointer}
+.nav a.primary,.btn.primary{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600}
+.card{border:1px solid var(--bd);border-radius:14px;padding:14px;margin:10px 0;background:var(--card)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tone{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:520px){.tone{grid-template-columns:1fr 1fr}}
+.item{border:1px solid var(--bd);border-radius:14px;padding:12px;background:var(--bg)}
+.char{font-size:1.7rem;font-weight:700;line-height:1.2}
+.jp{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--acc);font-size:1.05rem}
+.mean{color:var(--muted);font-size:.92rem}
+.play{background:var(--acc);color:#fff;border:none;border-radius:999px;padding:10px 16px;font-size:15px;font-weight:600;min-height:44px;cursor:pointer}
+.play.alt{background:var(--acc2)}
+.play.ghost{background:transparent;color:var(--fg);border:1px solid var(--bd)}
+.chip{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--chip);font-size:.82rem;margin-right:4px}
+.practice{border:1px dashed var(--bd);border-radius:14px;padding:14px;margin:12px 0}
+.reveal{display:none;margin-top:8px;padding:10px;border-radius:10px;background:var(--chip)}
+.reveal.show{display:block}
+ul.tight{padding-left:1.2em;margin:8px 0}ul.tight li{margin:4px 0}
+.footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--bd);color:var(--muted);font-size:.9rem}
+.home-link{display:block;padding:16px;margin:12px 0;border:1px solid var(--bd);border-radius:12px;text-decoration:none;color:inherit;font-size:17px;background:var(--card)}
+.badge{font-size:.8rem;color:var(--warn);font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">← 粤语归档</a>
+  <a href="lesson2.html">← 第2课</a>
+</div>
+<h1>第 3 课 · 懒音（听得懂，自己说标准）</h1>
+<p class="muted">发出日期约 2026-11-06。目标：你自己尽量说标准音；听到懒音也能对上号。</p>
+<p class="badge">状态：已发出 · 练习反馈待回复</p>
+
+<div class="card">
+  <h2>先澄清一点</h2>
+  <ul class="tight">
+    <li>普通话<strong>有</strong> n / l 对立（男≠蓝）。</li>
+    <li>粤语多了普通话没有的<strong>字头 ng</strong>（如 我 ngo5、眼 ngaan5）。</li>
+    <li>香港口语常见懒音：n→l（你→lei5）、字头 ng 脱落（我→o5）。</li>
+    <li>策略：<strong>说的时候跟标准</strong>；听的时候把懒音自动映射回标准字。</li>
+  </ul>
+</div>
+
+<h2>标准 / 懒音对照</h2>
+<div class="tone">
+<div class="item">
+  <div class="char">你</div>
+  <div class="mean">你；例：你好 nei5 hou2</div>
+  <div class="row" style="margin-top:8px">
+    <button class="play" onclick="playJp('nei5',this)">▶ 标准 nei5</button>
+    <button class="play alt" onclick="playJp('lei5',this)">▶ 懒音 lei5</button>
+  </div>
+</div>
+<div class="item">
+  <div class="char">我</div>
+  <div class="mean">我；例：我諗 ngo5 nam2</div>
+  <div class="row" style="margin-top:8px">
+    <button class="play" onclick="playJp('ngo5',this)">▶ 标准 ngo5</button>
+    <button class="play alt" onclick="playJp('o5',this)">▶ 懒音 o5</button>
+  </div>
+</div>
+<div class="item">
+  <div class="char">男</div>
+  <div class="mean">男</div>
+  <div class="row" style="margin-top:8px">
+    <button class="play" onclick="playJp('naam4',this)">▶ 标准 naam4</button>
+    <button class="play alt" onclick="playJp('laam4',this)">▶ 懒音 laam4</button>
+  </div>
+</div>
+<div class="item">
+  <div class="char">女</div>
+  <div class="mean">女；例：男女</div>
+  <div class="row" style="margin-top:8px">
+    <button class="play" onclick="playJp('neoi5',this)">▶ 标准 neoi5</button>
+    <button class="play alt" onclick="playJp('leoi5',this)">▶ 懒音 leoi5</button>
+  </div>
+</div>
+<div class="item">
+  <div class="char">諗</div>
+  <div class="mean">想、觉得</div>
+  <div class="row" style="margin-top:8px">
+    <button class="play" onclick="playJp('nam2',this)">▶ 标准 nam2</button>
+    <button class="play alt" onclick="playJp('lam2',this)">▶ 懒音 lam2</button>
+  </div>
+</div>
+<div class="item">
+  <div class="char">年</div>
+  <div class="mean">年；例：今年 gam1 nin4</div>
+  <div class="row" style="margin-top:8px">
+    <button class="play" onclick="playJp('nin4',this)">▶ 标准 nin4</button>
+    <button class="play alt" onclick="playJp('lin4',this)">▶ 懒音 lin4</button>
+  </div>
+</div>
+
+<div class="item">
+  <div class="char">眼</div>
+  <div class="jp">ngaan5</div>
+  <div class="mean">眼睛；保留 ng，别省掉</div>
+  <div class="row" style="margin-top:8px"><button class="play" onclick="playJp('ngaan5',this)">▶ ngaan5</button></div>
+</div>
+<div class="item">
+  <div class="char">屋</div>
+  <div class="jp">uk1</div>
+  <div class="mean">房子；标准是零声母，别硬加 ng</div>
+  <div class="row" style="margin-top:8px"><button class="play" onclick="playJp('uk1',this)">▶ uk1</button></div>
+</div>
+
+</div>
+
+<h2>常用例子</h2>
+<div class="card">
+  <ul class="tight">
+    <li><strong>你好</strong> <span class="jp">nei5 hou2</span>（懒音常听到 lei5 hou2）
+      <div class="row" style="margin-top:6px">
+        <button class="play" onclick="playJp('nei5',this)">你</button>
+        <button class="play" onclick="playJp('hou2',this)">好</button>
+      </div>
+    </li>
+    <li style="margin-top:10px"><strong>我諗……</strong> <span class="jp">ngo5 nam2</span>（我觉得……）
+      <div class="row" style="margin-top:6px">
+        <button class="play" onclick="playJp('ngo5',this)">我</button>
+        <button class="play" onclick="playJp('nam2',this)">諗</button>
+      </div>
+    </li>
+    <li style="margin-top:10px"><strong>今年</strong> <span class="jp">gam1 nin4</span></li>
+    <li><strong>男女</strong> <span class="jp">naam4 neoi5</span></li>
+  </ul>
+</div>
+
+<div class="practice">
+  <h2>小练习</h2>
+  <ol>
+    <li>先听 你/我/男/女 的标准与懒音各一遍，跟读<strong>标准版</strong>：我諗、你好、今年、男女。</li>
+    <li>用粤拼写出「你哋」（你们）和「我諗」。
+      <button class="btn" style="margin-left:8px" onclick="toggleReveal('a3')">显示答案</button>
+      <div id="a3" class="reveal"><div>你哋 = <code>nei5 dei6</code></div><div>我諗 = <code>ngo5 nam2</code></div>
+        <div class="row" style="margin-top:8px">
+          <button class="play" onclick="playJp('nei5',this)">nei5</button>
+          <button class="play" onclick="playJp('dei6',this)">dei6</button>
+          <button class="play" onclick="playJp('ngo5',this)">ngo5</button>
+          <button class="play" onclick="playJp('nam2',this)">nam2</button>
+        </div>
+      </div>
+    </li>
+    <li>街上你更常觉得哪边像香港口语——标准还是懒音？回我一句就行。</li>
+  </ol>
+</div>
+<div class="footer">发音：words.hk。懒音补充阅读：<a href="https://rhapsodyinlingo.com/en/lazy-sounds/" target="_blank" rel="noopener">Lazy sounds</a>（英文）。</div>
+
+
+<script>
+const AU={};
+function playJp(jp, btn){
+  const url='https://words.hk/static/jyutping/'+jp+'.mp3';
+  try{ if(AU[jp]){ AU[jp].pause(); AU[jp].currentTime=0; } }catch(e){}
+  const a=new Audio(url); AU[jp]=a;
+  if(btn){ const old=btn.textContent; btn.textContent='播放中…'; btn.disabled=true;
+    a.onended=a.onerror=()=>{btn.textContent=old; btn.disabled=false;};
+  }
+  a.play().catch(()=>{ if(btn){btn.textContent='播放失败'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1200);} });
+}
+function toggleReveal(id){ const el=document.getElementById(id); if(el) el.classList.toggle('show'); }
+</script>
+
+</body>
+</html>
