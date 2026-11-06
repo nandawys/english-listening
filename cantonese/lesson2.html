@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>粤语第2课 · 入声</title>
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#666;--card:#f7f7f8;--bd:#ddd;--acc:#2f6fed;--acc2:#0a7a3e;--warn:#b54708;--chip:#eef3ff}
+@media(prefers-color-scheme:dark){:root{--bg:#111;--fg:#eee;--muted:#aaa;--card:#1a1a1a;--bd:#333;--acc:#6ea8fe;--acc2:#3ecf8e;--warn:#ffb86b;--chip:#1e2a44}}
+*{box-sizing:border-box}body{font-family:-apple-system,system-ui,"PingFang SC","Noto Sans SC",sans-serif;max-width:680px;margin:0 auto;padding:20px 16px 48px;line-height:1.65;background:var(--bg);color:var(--fg)}
+a{color:var(--acc)}h1{font-size:1.55rem;margin:8px 0 6px}h2{font-size:1.2rem;margin:22px 0 10px}h3{font-size:1.05rem;margin:16px 0 8px}
+.muted{color:var(--muted);font-size:.95rem}.nav{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+.nav a,.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 14px;border:1px solid var(--bd);border-radius:12px;text-decoration:none;color:inherit;background:var(--card);font-size:15px;min-height:44px;cursor:pointer}
+.nav a.primary,.btn.primary{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600}
+.card{border:1px solid var(--bd);border-radius:14px;padding:14px;margin:10px 0;background:var(--card)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tone{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:520px){.tone{grid-template-columns:1fr 1fr}}
+.item{border:1px solid var(--bd);border-radius:14px;padding:12px;background:var(--bg)}
+.char{font-size:1.7rem;font-weight:700;line-height:1.2}
+.jp{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--acc);font-size:1.05rem}
+.mean{color:var(--muted);font-size:.92rem}
+.play{background:var(--acc);color:#fff;border:none;border-radius:999px;padding:10px 16px;font-size:15px;font-weight:600;min-height:44px;cursor:pointer}
+.play.alt{background:var(--acc2)}
+.play.ghost{background:transparent;color:var(--fg);border:1px solid var(--bd)}
+.chip{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--chip);font-size:.82rem;margin-right:4px}
+.practice{border:1px dashed var(--bd);border-radius:14px;padding:14px;margin:12px 0}
+.reveal{display:none;margin-top:8px;padding:10px;border-radius:10px;background:var(--chip)}
+.reveal.show{display:block}
+ul.tight{padding-left:1.2em;margin:8px 0}ul.tight li{margin:4px 0}
+.footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--bd);color:var(--muted);font-size:.9rem}
+.home-link{display:block;padding:16px;margin:12px 0;border:1px solid var(--bd);border-radius:12px;text-decoration:none;color:inherit;font-size:17px;background:var(--card)}
+.badge{font-size:.8rem;color:var(--warn);font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">← 粤语归档</a>
+  <a href="lesson1.html">← 第1课</a>
+  <a href="lesson3.html">下一课 →</a>
+</div>
+<h1>第 2 课 · 入声 -p / -t / -k</h1>
+<p class="muted">发出日期约 2026-11-05。目标：听出并跟读塞音韵尾，不在后面加元音。</p>
+<p class="badge">状态：已发出 · 跟读反馈待回复</p>
+
+<div class="card">
+  <h2>入声是什么</h2>
+  <p>粤语有以 <strong>-p / -t / -k</strong> 收尾的音节。收尾是<strong>不除阻</strong>（unreleased）的塞音：口腔堵住就停，不要再发出额外的元音（别说成 「si-ke」）。</p>
+  <p>调类提示：<code>sik1 / sik3 / sik6</code> 对应第 1 课 <code>si1 / si3 / si6</code> 那几个调类，只是更短促。</p>
+</div>
+
+<h2>核心字</h2>
+<div class="tone">
+<div class="item">
+  <div class="row" style="justify-content:space-between;align-items:flex-start">
+    <div>
+      <div class="char">色</div>
+      <div class="jp">sik1</div>
+      <div class="mean">颜色；阴入（短促高）</div>
+      <div class="mean"><a href="https://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/search.php?q=%A6%E2" target="_blank" rel="noopener">中大审音</a></div>
+    </div>
+    <div class="row"><button class="play" onclick="playJp('sik1',this)">▶ 听</button></div>
+  </div>
+</div><div class="item">
+  <div class="row" style="justify-content:space-between;align-items:flex-start">
+    <div>
+      <div class="char">錫</div>
+      <div class="jp">sik3</div>
+      <div class="mean">锡；口语也常说 sek3</div>
+      <div class="mean"><a href="https://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/search.php?q=%BF%FC" target="_blank" rel="noopener">中大审音</a></div>
+    </div>
+    <div class="row"><button class="play" onclick="playJp('sik3',this)">▶ 听</button> <button class="play alt" onclick="playJp('sek3',this)">▶ sek3 口语</button></div>
+  </div>
+</div><div class="item">
+  <div class="row" style="justify-content:space-between;align-items:flex-start">
+    <div>
+      <div class="char">食</div>
+      <div class="jp">sik6</div>
+      <div class="mean">吃；阳入（短促低）</div>
+      <div class="mean"><a href="https://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/search.php?q=%AD%B9" target="_blank" rel="noopener">中大审音</a></div>
+    </div>
+    <div class="row"><button class="play" onclick="playJp('sik6',this)">▶ 听</button></div>
+  </div>
+</div><div class="item">
+  <div class="row" style="justify-content:space-between;align-items:flex-start">
+    <div>
+      <div class="char">一</div>
+      <div class="jp">jat1</div>
+      <div class="mean">一</div>
+      <div class="mean"><a href="https://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/search.php?q=%A4%40" target="_blank" rel="noopener">中大审音</a></div>
+    </div>
+    <div class="row"><button class="play" onclick="playJp('jat1',this)">▶ 听</button></div>
+  </div>
+</div><div class="item">
+  <div class="row" style="justify-content:space-between;align-items:flex-start">
+    <div>
+      <div class="char">八</div>
+      <div class="jp">baat3</div>
+      <div class="mean">八</div>
+      <div class="mean"><a href="https://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/search.php?q=%A4K" target="_blank" rel="noopener">中大审音</a></div>
+    </div>
+    <div class="row"><button class="play" onclick="playJp('baat3',this)">▶ 听</button></div>
+  </div>
+</div><div class="item">
+  <div class="row" style="justify-content:space-between;align-items:flex-start">
+    <div>
+      <div class="char">十</div>
+      <div class="jp">sap6</div>
+      <div class="mean">十</div>
+      <div class="mean"><a href="https://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/search.php?q=%A4Q" target="_blank" rel="noopener">中大审音</a></div>
+    </div>
+    <div class="row"><button class="play" onclick="playJp('sap6',this)">▶ 听</button></div>
+  </div>
+</div>
+</div>
+
+<h2>今日短句</h2>
+<div class="card">
+  <div class="char">食咗飯未呀？</div>
+  <div class="jp">sik6 zo2 faan6 mei6 aa3</div>
+  <div class="mean">吃过饭了没？（打招呼常用）</div>
+  <div class="row" style="margin-top:10px">
+    <button class="play" onclick="playJp('sik6',this)">食</button>
+    <button class="play" onclick="playJp('zo2',this)">咗</button>
+    <button class="play" onclick="playJp('faan6',this)">飯</button>
+    <button class="play" onclick="playJp('mei6',this)">未</button>
+    <button class="play" onclick="playJp('aa3',this)">呀</button>
+  </div>
+</div>
+
+<div class="practice">
+  <h2>小练习</h2>
+  <ol>
+    <li>跟读：一、八、十 → <code>jat1 baat3 sap6</code></li>
+    <li>跟读整句：食咗飯未呀？</li>
+    <li>用粤拼写出「十八」。<button class="btn" style="margin-left:8px" onclick="toggleReveal('a2')">显示答案</button>
+      <div id="a2" class="reveal"><code>sap6 baat3</code></div>
+    </li>
+  </ol>
+</div>
+<div class="footer">发音：words.hk。词典备份：中大粤语审音认字。</div>
+
+
+<script>
+const AU={};
+function playJp(jp, btn){
+  const url='https://words.hk/static/jyutping/'+jp+'.mp3';
+  try{ if(AU[jp]){ AU[jp].pause(); AU[jp].currentTime=0; } }catch(e){}
+  const a=new Audio(url); AU[jp]=a;
+  if(btn){ const old=btn.textContent; btn.textContent='播放中…'; btn.disabled=true;
+    a.onended=a.onerror=()=>{btn.textContent=old; btn.disabled=false;};
+  }
+  a.play().catch(()=>{ if(btn){btn.textContent='播放失败'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1200);} });
+}
+function toggleReveal(id){ const el=document.getElementById(id); if(el) el.classList.toggle('show'); }
+</script>
+
+</body>
+</html>
